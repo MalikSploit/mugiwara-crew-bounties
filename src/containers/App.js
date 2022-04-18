@@ -3,6 +3,7 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import './App.css';
 import Scroll from '../components/Scroll.js';
+import ErrorBoundry from '../components/ErrorBoundry';
 import { robots } from '../robots';
 
 class App extends Component 
@@ -37,7 +38,9 @@ class App extends Component
 				<h1 className='f2'>Mugiwara Crew</h1>
 				<SearchBox searchChange={this.onSearchChange}/>
 				<Scroll>
-					<CardList member={filterRobots}/>
+					<ErrorBoundry>
+						<CardList member={filterRobots}/>
+					</ErrorBoundry>
 				</Scroll>
 			</div>
 		)
