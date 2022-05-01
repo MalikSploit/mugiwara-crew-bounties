@@ -1,50 +1,37 @@
-import React, { Component } from 'react';
+import React, {useState} from 'react';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
-import './App.css';
 import Scroll from '../components/Scroll.js';
 import ErrorBoundry from '../components/ErrorBoundry';
-import { robots } from '../robots';
+import { mugiwara } from '../mugiwara';
+import './App.css';
 
-class App extends Component 
+function App()
 {
-	constructor(props)
+	const [robots] = useState(mugiwara);
+	const [searchfield, setSearchfield] = useState('');
+
+	const onSearchChange = (event) =>
 	{
-		super(props);
-		this.state = 
-		{
-			robots: robots,
-			searchfield: ''
-		}
+		setSearchfield(event.target.value);
 	}
 
-	onSearchChange = (event) =>
+	const filterRobots = robots.filter(robot =>
 	{
-		this.setState({ searchfield: event.target.value });
-	}
+		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+	})
 
-	render()
-	{
-		const { robots, searchfield } = this.state;
-		const filterRobots = this.state.robots.filter(robot =>
-		{
-			return robot.name.toLowerCase().includes(searchfield.toLowerCase());
-		})
-
-		return !robots.length ?
-		<h1>Loading</h1> :
-		(
-			<div className='tc'>
-				<h1 className='f2'>Mugiwara Crew</h1>
-				<SearchBox searchChange={this.onSearchChange}/>
-				<Scroll>
-					<ErrorBoundry>
-						<CardList member={filterRobots}/>
-					</ErrorBoundry>
-				</Scroll>
-			</div>
-		)
-	}
+	return !robots.length ? <h1>Loading</h1> : (
+		<div className='tc'>
+			<h1 className='f2'>Mugiwara Crew</h1>
+			<SearchBox searchChange={onSearchChange}/>
+			<Scroll>
+				<ErrorBoundry>
+					<CardList member={filterRobots}/>
+				</ErrorBoundry>
+			</Scroll>
+		</div>
+	)
 }
 
 export default App;

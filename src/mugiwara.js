@@ -1,4 +1,4 @@
-export const robots =
+export const mugiwara =
 [
   {
     id: 1,
