@@ -16,7 +16,7 @@ function App()
 		setSearchfield(event.target.value);
 	}
 
-	const filterRobots = robots.filter(robot =>
+	const filterMugiwara = robots.filter(robot =>
 	{
 		return robot.name.toLowerCase().includes(searchfield.toLowerCase());
 	})
@@ -27,7 +27,7 @@ function App()
 			<SearchBox searchChange={onSearchChange}/>
 			<Scroll>
 				<ErrorBoundry>
-					<CardList member={filterRobots}/>
+					<CardList member={filterMugiwara}/>
 				</ErrorBoundry>
 			</Scroll>
 		</div>
